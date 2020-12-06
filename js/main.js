@@ -131,6 +131,7 @@ $(document).ready(function () {
         dragEndSpeed: 1000,
         slidSpeed: 5000,
         paginationSpeed: 1500,
+		navText: ['<img src=img/icons/right.png />', '<img src=img/icons/left.png />'],
         responsive: {
             0: {
                 items: 1

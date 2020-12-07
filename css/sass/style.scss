@@ -1184,6 +1184,9 @@ $social: (
     padding: 16px 16px 55px;
     background-color: #f2f2f2;
     margin-top: 50px;
+    @media (max-width: $screen-md) {
+      margin-top: 20px;
+    }
     &::before {
       content: "";
       display: block;
@@ -1200,6 +1203,9 @@ $social: (
       #{$rtl} & {
         right: 0;
         transform: translateX(100%);
+      }
+      @media (max-width: $screen-md) {
+        display: none;
       }
     }
     .logo-img {

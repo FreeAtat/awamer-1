@@ -1,25 +1,39 @@
 /*global $, document*/
 
+// loader
+$(window).on('load', function() {
+	$('.loader').fadeOut();
+	$('body.no-transition').removeClass('no-transition')
+})
 $(document).ready(function () {
     
     'use strict';
-    $(function(){
-		console.log($("[data-html]").data('html') + ".html")
-		$("[data-html]").each(function() {
-			$(this).load($(this).data('html') + ".html"); 
-		})
-	  });
-	// loader
-	$(window).on('load', function() {
-		$('.loader').fadeOut()
+	$('.nav-list a[href="#"]').click(function (e) {
+		e.preventDefault()
+	})
+	$('.search-btn').click(function () {
+		$('.search-popup').addClass('show')
+	})
+	$('.close-search').click(function () {
+		$('.search-popup').removeClass('show')
 	})
 
+	$(window).on("scroll", function() {
+		if($(window).scrollTop() > $(window).height()) {
+			$(".header").addClass("fixed");
+		} else {
+			$(".header").removeClass("fixed");
+		}
+	})
+	
     // nav btn
 	$('.nav-btn').click(function () {
 		$('.main-nav .nav-list, .main-nav .overlay').addClass('show')
+		$(this).addClass('active')
 	});
 	$('.main-nav .overlay, .close-bar').click(function () {
 		$('.main-nav .nav-list, .main-nav .overlay').removeClass('show')
+		$('.nav-btn').removeClass('active')
 	});
 
 	// mood setter
@@ -51,15 +65,14 @@ $(document).ready(function () {
 
 	let owlDirection = $('html[dir="rtl"]').length == 1 ? true : false;
     // Start Partners Slider
-	
+
     $('.slider-1').owlCarousel({
 		dir: owlDirection ? 'rtl' : 'ltr',
 		items: 1,
         loop:true,
         autoplay: true,
         margin:0,
-        nav: true,
-        navText: ['<img src=img/icons/right.png />', '<img src=img/icons/left.png />'],
+        nav: false,
         animateOut: 'fadeOut'
 	});
 	
@@ -76,7 +89,7 @@ $(document).ready(function () {
 		dragEndSpeed: 700,
 		slidSpeed: 900,
 		paginationSpeed: 900,
-		navText: ['<img src=img/icons/right.png />', '<img src=img/icons/left.png />'],
+		navText: [`<img src=${right_arrow} />`, `<img src=${left_arrow} />`],
 		responsive: {
 			0: {
 				items: 1
@@ -131,7 +144,7 @@ $(document).ready(function () {
         dragEndSpeed: 1000,
         slidSpeed: 5000,
         paginationSpeed: 1500,
-		navText: ['<img src=img/icons/right.png />', '<img src=img/icons/left.png />'],
+		navText: [`<img src=${right_arrow} />`, `<img src=${left_arrow} />`],
         responsive: {
             0: {
                 items: 1
@@ -145,6 +158,59 @@ $(document).ready(function () {
         }
     });
 	// product-slide
+    $('.product-big-slide').owlCarousel({
+        loop: true,
+        autoplay: true,
+        margin: 30,
+        nav: false,
+        dots: false,
+        autoWidth: false,
+        autoplayTimeout: 6000,
+        smartSpeed: 1000,
+        dragEndSpeed: 1000,
+        slidSpeed: 5000,
+        paginationSpeed: 1500,
+		navText: [`<img src=${right_arrow} />`, `<img src=${left_arrow} />`],
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 2
+            }
+        }
+    });
+    $('.works-slide').owlCarousel({
+        loop: false,
+        autoplay: false,
+        margin: 30,
+        nav: true,
+        dots: false,
+        autoWidth: false,
+        autoplayTimeout: 6000,
+        smartSpeed: 1000,
+        dragEndSpeed: 1000,
+        slidSpeed: 5000,
+        paginationSpeed: 1500,
+		navText: [`<img src=${right_arrow} />`, `<img src=${left_arrow} />`],
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 4
+            },
+            1000: {
+                items: 6
+            }
+        }
+    });
+
+
+	// partner-slide
     $('.partners-slide').owlCarousel({
         loop: true,
         autoplay: true,
@@ -157,7 +223,7 @@ $(document).ready(function () {
         dragEndSpeed: 1000,
         slidSpeed: 5000,
 		paginationSpeed: 1500,
-		navText: ['<img src=img/icons/right.png />', '<img src=img/icons/left.png />'],
+		navText: [`<img src=${right_arrow} />`, `<img src=${left_arrow} />`],
         responsive: {
             0: {
                 items: 2
@@ -170,12 +236,53 @@ $(document).ready(function () {
             }
         }
     });
+
+	// Start team slider
+	$('.team-slider.owl-carousel').owlCarousel({
+		items: 5,
+		rtl: false,
+		center: true,
+		loop:true,
+		// autoplay: true,
+		margin:30,
+		autoplayTimeout: 6000,
+		smartSpeed: 700,
+		dragEndSpeed: 700,
+		slidSpeed: 900,
+		paginationSpeed: 900,
+		nav: true,
+		navText: ['<img src=/public/site/img/icons/right.png />', '<img src=/public/site/img/icons/left.png />'],
+		responsive: {
+			320: {
+				items: 2,
+				center: false
+			} ,
+
+			480: {
+				items: 2,
+				center: false
+			} ,
+
+			768: {
+				items: 3
+			} ,
+
+			991: {
+				items: 5
+			}
+		}
+	});
 });
 
-
+// addEventListener(document, "touchstart", function(e) {
+// 	console.log(e.defaultPrevented);  // will be false
+// 	e.preventDefault();   // does nothing since the listener is passive
+// 	console.log(e.defaultPrevented);  // still false
+// }, Modernizr.passiveeventlisteners ? {passive: true} : false);
 
     
-
+var right_arrow = "img/right.png";
+var left_arrow = "img/left.png";
 
 
 

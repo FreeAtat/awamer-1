@@ -19,11 +19,22 @@ html {
 body {
     font-family: $font-normal;
     overflow-x: hidden;
-    direction: rtl; 
-    text-align: right;
+    #{$ltr} & {
+        direction: ltr; 
+        text-align: left;
+    }
+    #{$rtl} & {
+        direction: rtl; 
+        text-align: right;
+    }
     &#{$theme-light} {
         background-color: $white;
-        color: $dark-color;
+        #{$theme-light} & {
+    color: $dark-color;
+  }
+  #{$theme-dark} & {
+    color: $light-color;
+  }
     }
     &#{$theme-dark} {
         color: $white;
@@ -33,6 +44,9 @@ body {
       padding-bottom: 60px; 
     }
 }
+body.no-transition * {
+  transition: none !important;
+}
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -41,9 +55,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
 
 p {
-  color: #a9a9a9;
+  #{$theme-light} & {
+    color: $dark;
+  }
+  #{$theme-dark} & {
+    color: $white
+  }
   margin: 0;
-  font-size: 1em;
+  font-size: 1.2em;
 }
 input:focus::placeholder
 {
@@ -58,7 +77,12 @@ form
 {
     padding: 0;
     margin: 0 auto;
-    text-align: right;
+    #{$ltr} & {
+        text-align: left;
+    }
+    #{$rtl} & {
+        text-align: right;
+    }
 	width: 100%;
 }
 
@@ -108,7 +132,7 @@ input:focus
 }
 .owl-carousel .owl-item
 {
-	direction: rtl;
+    @include dir-direction(ltr);
 }
 
 .owl-carousel .owl-stage, .owl-carousel.owl-drag .owl-item{
@@ -117,8 +141,10 @@ input:focus
 }
 /* owl carousel*/
 
-@media(min-width: $screen-xxl) {
-    .container {
-        max-width: 1418px;
+.owl-nav img {
+    #{$ltr} & {
+      transform: rotate(180deg);
     }
+    width: 43px;
+    height: 43px;
 }
